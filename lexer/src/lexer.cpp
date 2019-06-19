@@ -118,9 +118,13 @@ Token* Lexer::tokenize(std::string str) {
 				if(isKeyword(tok->getToken())) {
 					debug("isKeyword", true);
 					tok->setType(TokenType::KEYWORD);
-				} else {
+				} else if(isVariable(std::string(str.begin(), ptr))) {
 					debug("isKeyword", false);
+					debug("isVariable", true);
 					tok->setType(TokenType::IDENTIFIER);
+				} else {
+					debug("isVariable", false);
+					tok->setType(TokenType::VALUE);
 				}
 				return tok;
 			} else {
@@ -160,8 +164,15 @@ bool Lexer::isKeyword(std::string str) {
 	return false;
 }
 
-bool Lexer::regex(std::string str, std::string reg) {
-
+bool Lexer::isVariable(std::string str) {
+	if(!isalpha(str[0]) && str[0] != '_') {
+		return false;
+	}
+	for(auto c : str) {
+		if(!isalnum(c) && c != '_') {
+			return false;
+		}
+	}
 	return true;
 }
 
@@ -183,7 +194,7 @@ void Lexer::lex(char *filename) {
 
 	std::string str = "";
 	while(getline(file, str)) {
-		std::cout << str << std::endl;
+		//std::cout << str << std::endl;
 
 		Sentence *lexed = new Sentence();
 		while(str.length() > 0) {

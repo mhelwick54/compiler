@@ -30,7 +30,7 @@ public:
 	}
 
 	void 		setToken(std::string token) { this->token = token; }
-	void 		setType(TokenType token) { std::cout << "setting type " << static_cast<int>(type); this->type = type; }
+	void 		setType(TokenType type) { this->type = type; }
 	std::string getToken() { return this->token; }
 	TokenType 	getType() { return this->type; }
 

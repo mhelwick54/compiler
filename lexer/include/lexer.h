@@ -30,7 +30,7 @@ public:
 	Token* tokenize(std::string str);
 	bool isOperator(std::string str);
 	bool isKeyword(std::string str);
-	bool regex(std::string str, std::string reg);
+	bool isVariable(std::string str);
 	void stripWhiteSpace(std::string *str);
 	void lex(char *filename);
 };
